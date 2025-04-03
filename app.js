@@ -4,7 +4,11 @@ require('dotenv').config();
 const db = require('./models');
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', // 前端的端口
+    credentials: true // 如果使用 cookie/token 可以打开
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -29,8 +33,4 @@ app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
 });
 
-const cors = require('cors');
-app.use(cors({
-    origin: 'http://localhost:5173', // 前端的端口
-    credentials: true // 如果使用 cookie/token 可以打开
-}));
+
