@@ -28,3 +28,9 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`🚀 Server is running on port ${PORT}`);
 });
+
+const cors = require('cors');
+app.use(cors({
+    origin: 'http://localhost:5173', // 前端的端口
+    credentials: true // 如果使用 cookie/token 可以打开
+}));
