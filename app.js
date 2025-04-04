@@ -1,36 +1,28 @@
 const express = require('express');
 const cors = require('cors');
-require('dotenv').config();
 const db = require('./models');
+require('dotenv').config();
 
 const app = express();
-app.use(cors({
-    origin: 'http://localhost:5173', // 前端的端口
-    credentials: true // 如果使用 cookie/token 可以打开
-}));
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// 初始化数据库
-db.sequelize.sync().then(() => {
-    console.log('✅ Database synced.');
-}).catch(err => {
-    console.error('❌ Sync failed:', err.message);
-});
-
-// 路由加载
-app.use('/api/users', require('./routes/user.routes'));
-app.use('/api/projects', require('./routes/project.routes'));
-// ...
-
-app.get('/', (req, res) => {
-    res.send('SkillHive API is running...');
-});
-
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server is running on port ${PORT}`);
+
+app.use(cors());
+app.use(express.json());
+
+// 注册用户路由
+app.use('/api/users', require('./routes/user.routes'));
+
+// 测试根路由
+app.get('/', (req, res) => {
+    res.send('🔥 SkillHive API running');
 });
 
+// 数据库连接
+db.sequelize.sync().then(() => {
+    console.log('✅ 数据库同步完成');
+});
 
+// 启动服务
+app.listen(PORT, () => {
+    console.log(`🚀 服务器已启动，端口：${PORT}`);
+});
