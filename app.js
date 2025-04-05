@@ -26,3 +26,7 @@ db.sequelize.sync().then(() => {
 app.listen(PORT, () => {
     console.log(`🚀 服务器已启动，端口：${PORT}`);
 });
+
+app.get('/ping', (req, res) => {
+    res.send('pong 🏓');
+});
