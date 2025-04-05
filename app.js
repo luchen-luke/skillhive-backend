@@ -3,8 +3,12 @@ const cors = require('cors');
 const db = require('./models');
 require('dotenv').config();
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`🚀 服务器已启动，端口：${PORT}`);
+});
 
 app.use(cors());
 app.use(express.json());
@@ -20,11 +24,6 @@ app.get('/', (req, res) => {
 // 数据库连接
 db.sequelize.sync().then(() => {
     console.log('✅ 数据库同步完成');
-});
-
-// 启动服务
-app.listen(PORT, () => {
-    console.log(`🚀 服务器已启动，端口：${PORT}`);
 });
 
 app.get('/ping', (req, res) => {
