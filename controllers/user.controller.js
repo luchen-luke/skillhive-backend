@@ -1,27 +1,52 @@
-// controllers/user.controller.js
-
 const db = require('../models');
 const User = db.User;
 
-// 获取所有用户
-exports.findAll = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.findAll();
         res.json(users);
-    } catch (error) {
-        console.error('❌ 获取用户出错:', error);
-        res.status(500).json({ message: '服务器错误' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
 
-// 创建新用户
-exports.create = async (req, res) => {
+exports.getUserById = async (req, res) => {
     try {
-        const { name, email, password, role } = req.body;
-        const newUser = await User.create({ name, email, password, role });
+        const user = await User.findByPk(req.params.id);
+        if (!user) return res.status(404).json({ message: '用户不存在' });
+        res.json(user);
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+};
+
+exports.createUser = async (req, res) => {
+    try {
+        const newUser = await User.create(req.body);
         res.status(201).json(newUser);
-    } catch (error) {
-        console.error('❌ 创建用户出错:', error);
-        res.status(400).json({ message: '创建失败', error: error.message });
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+exports.updateUser = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) return res.status(404).json({ message: '用户不存在' });
+        await user.update(req.body);
+        res.json(user);
+    } catch (err) {
+        res.status(400).json({ error: err.message });
+    }
+};
+
+exports.deleteUser = async (req, res) => {
+    try {
+        const user = await User.findByPk(req.params.id);
+        if (!user) return res.status(404).json({ message: '用户不存在' });
+        await user.destroy();
+        res.json({ message: '用户已删除' });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 };
