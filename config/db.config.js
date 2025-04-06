@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config();
+require('dotenv').config(); // 保证环境变量已加载
 
 console.log('[ENV CHECK]', {
     DB_NAME: process.env.DB_NAME,
@@ -7,7 +7,7 @@ console.log('[ENV CHECK]', {
     DB_PASS: process.env.DB_PASS,
     DB_HOST: process.env.DB_HOST,
     DB_PORT: process.env.DB_PORT,
-    DIALECT: process.env.DB_DIALECT,
+    DB_DIALECT: process.env.DB_DIALECT,
 });
 
 const sequelize = new Sequelize(
@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false, // 如果证书是自签名的
+                rejectUnauthorized: false, // 如果你没有上传 CA 证书
             },
         },
     }

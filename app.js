@@ -3,7 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./models');
 
+db.sequelize.sync({ alter: true }) // 🔄 自动同步表结构
+    .then(() => console.log('✅ 数据库表结构同步完成'))
+    .catch((err) => console.error('❌ 表结构同步失败：', err));
 const app = express();
+
 
 app.use(cors());
 app.use(express.json());
