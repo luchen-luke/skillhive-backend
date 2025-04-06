@@ -1,5 +1,5 @@
 const { Sequelize } = require('sequelize');
-require('dotenv').config(); // 确保你能读到 .env
+require('dotenv').config();
 
 const sequelize = new Sequelize(
     process.env.DB_NAME,
@@ -8,14 +8,14 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        dialect: 'mysql',
+        dialect: 'postgres',
+        logging: false,
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false, // ← 必须关闭校验证书
+                rejectUnauthorized: false,
             },
         },
-        logging: false,
     }
 );
 
