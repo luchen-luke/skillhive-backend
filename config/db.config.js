@@ -8,14 +8,14 @@ const sequelize = new Sequelize(
     {
         host: process.env.DB_HOST,
         port: process.env.DB_PORT,
-        dialect: 'postgres', // ✅ 关键更改
+        dialect: 'postgres', // ✅ 字符串，不要加花括号
         logging: false,
         dialectOptions: {
             ssl: {
                 require: true,
-                rejectUnauthorized: false
-            }
-        }
+                rejectUnauthorized: false,
+            },
+        },
     }
 );
 
