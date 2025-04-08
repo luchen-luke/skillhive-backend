@@ -9,7 +9,10 @@ db.sequelize.sync({ alter: true }) // 🔄 自动同步表结构
 const app = express();
 
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173', //Front-end development address
+    credentials: true
+}));
 app.use(express.json());
 
 // ✅ API 路由
