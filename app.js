@@ -14,6 +14,8 @@ app.use(express.json());
 
 // ✅ API 路由
 app.use('/api/users', require('./routes/user.routes'));
+app.use('/api/skills', require('./routes/skill.routes'));
+
 
 // ✅ 启动服务器 & 数据库连接
 const PORT = process.env.PORT || 3000;
