@@ -36,14 +36,14 @@ fs.readdirSync(__dirname)
 // 设置模型关联
 const { User, Project, Application } = db;
 
-User.hasMany(Project, { foreignKey: 'user_id' });
-Project.belongsTo(User, { foreignKey: 'user_id' });
+// User.hasMany(Project, { foreignKey: 'user_id' });
+// Project.belongsTo(User, { foreignKey: 'user_id' });
 
-User.hasMany(Application, { foreignKey: 'user_id' });
-Project.hasMany(Application, { foreignKey: 'project_id' });
+// User.hasMany(Application, { foreignKey: 'user_id' });
+// Project.hasMany(Application, { foreignKey: 'project_id' });
 
-Application.belongsTo(User, { foreignKey: 'user_id' });
-Application.belongsTo(Project, { foreignKey: 'project_id' });
+// Application.belongsTo(User, { foreignKey: 'user_id' });
+// Application.belongsTo(Project, { foreignKey: 'project_id' });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
